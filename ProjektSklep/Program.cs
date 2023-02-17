@@ -1,3 +1,7 @@
+using ProjektSklep.Models;
+using ProjektSklep.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace ProjektSklep
 {
     public class Program
@@ -8,7 +12,8 @@ namespace ProjektSklep
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddDbContext<ProjektSklepContext>(options => options.UseSqlServer("Data Source=GRZEGORZ;Initial Catalog=ProjektSklep;Integrated Security=True;TrustServerCertificate=True"));
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -17,6 +22,18 @@ namespace ProjektSklep
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+            }
+            using (var scope = app.Services.CreateScope())
+            {
+                try
+                {
+                    var services = scope.ServiceProvider;
+                    SeedData.Initialize(services);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
             }
 
             app.UseHttpsRedirection();

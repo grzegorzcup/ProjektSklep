@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjektSklep.Models;
 using System.Diagnostics;
+using ProjektSklep.Data;
+using ProjektSklep.Repository;
 
 namespace ProjektSklep.Controllers
 {
@@ -12,6 +14,14 @@ namespace ProjektSklep.Controllers
         {
             _logger = logger;
         }
+
+        private readonly ProjektSklepContext _context;
+
+        public HomeController(ProjektSklepContext context)
+        {
+            _context = context;
+        }
+
 
         public IActionResult Index()
         {
