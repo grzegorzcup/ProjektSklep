@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjektSklep.Data;
 using ProjektSklep.Controllers;
+using System.Drawing.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ProjektSklep.Models
 {
@@ -12,12 +15,13 @@ namespace ProjektSklep.Models
             serviceProvider.GetRequiredService<
             DbContextOptions<ProjektSklepContext>>()))
             {
+
                 // sprawdzamy czy są już jakieś dane w bazie dla Movies.
                 if (context.Products.Any())
                 {
                     return; // jeżeli tak, to dane zostały już dodane.
                 }
-
+                
                 var Elektronika = new Category { Kategoria = "Elektronika" };
                 var Moda = new Category { Kategoria = "Moda" };
                 var Dzieci = new Category { Kategoria = "Dzieci" };
@@ -34,34 +38,39 @@ namespace ProjektSklep.Models
                 {
                     Name = "Galaxy S22 Ultra 5G",
                     Description = "Telefon ",
-                    Category = Elektronika
+                    Category = Elektronika,
+                    Cena = 4000
                 },
                 new Product
                 {
                     Name = "Jeansy",
                     Description = "Spodnie ",
-                    Category = Moda
+                    Category = Moda,
+                    Cena = 20
                 },
                 new Product
                 {
                     Name = "Traktor zabawka",
                     Description = "Zabawka ",
-                    Category = Dzieci
+                    Category = Dzieci,
+                    Cena = 100
+                    
                 },
                 new Product
                 {
                     Name = "Piła siatkowa",
                     Description = "Piłka ",
-                    Category = Sport
+                    Category = Sport,
+                    Cena=240.99
                 }
                 );
                 context.SaveChanges();
 
+
                 context.Clients.AddRange(
                     new Client
                     {
-                        Login = "Admin",
-                        Password = "Admin",
+                        UserName = "Admin",
                         Imie = "Admin",
                         Nazwisko = "Admin",
                         PhoneNumber = "Admin",
@@ -69,8 +78,15 @@ namespace ProjektSklep.Models
                     },
                     new Client
                     {
-                        Login = "marek200",
-                        Password = "password",
+                        UserName = "Guest",
+                        Imie = "Guest",
+                        Nazwisko = "Guest",
+                        PhoneNumber = "123456",
+                        Email = "Guest@guest.pl"
+                    },
+                    new Client
+                    {
+                        UserName = "marek200",
                         Imie = "Marek",
                         Nazwisko = "Kowalski",
                         PhoneNumber = "123456",
@@ -80,7 +96,7 @@ namespace ProjektSklep.Models
                 );
                 context.SaveChanges();
             }
-
         }
+
     }
 }

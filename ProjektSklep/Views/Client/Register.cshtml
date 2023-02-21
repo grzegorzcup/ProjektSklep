@@ -1,0 +1,38 @@
+﻿@model ProjektSklep.Models.Register
+
+<h1 style="text-align:center">Logowanie</h1>
+
+<form asp-action="Register" method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="UserName">Nazwa użytkownika </label>
+        <input type="text" asp-for="UserName" />
+        <br />
+    </div>
+    <div>
+        <label asp-for="Imie">Imię </label>
+        <input type="text" asp-for="Imie" />
+        <br />
+    </div>
+    <div>
+        <label asp-for="Nazwisko">Nazwisko </label>
+        <input type="text" asp-for="Nazwisko" />
+        <br />
+    </div>
+    <div>
+        <label asp-for="PhoneNumber">Numer telefonu </label>
+        <input type="number" asp-for="PhoneNumber" />
+        <br />
+    </div>
+    <div>
+        <label asp-for="Email">Email </label>
+        <input type="email" asp-for="Email" />
+        <br />
+    </div>
+    <div>
+        <label asp-for="Password">Hasło </label>
+        <input type="password" asp-for="Password" />
+        <br />
+    </div>
+    <button type="submit">Zarejestruj</button>
+</form>

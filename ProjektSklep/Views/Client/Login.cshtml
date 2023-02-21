@@ -1,0 +1,18 @@
+﻿@model ProjektSklep.Models.Login
+
+<h1 style="text-align:center">Logowanie</h1>
+
+<form asp-action="Login" method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="userName">Nazwa użytkownika </label>
+        <input type="text" asp-for="userName" />
+        <br />
+    </div>
+    <div>
+        <label asp-for="Password">Hasło </label>
+        <input type="password" asp-for="Password" />
+        <br />
+    </div>
+    <button type="submit">Zaloguj</button>
+</form>

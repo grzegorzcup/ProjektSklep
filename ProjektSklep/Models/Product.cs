@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.SqlTypes;
 
 namespace ProjektSklep.Models
 {
@@ -14,14 +15,17 @@ namespace ProjektSklep.Models
         [Required]
         [StringLength(50)]
         [DataType(DataType.Text)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [DataType(DataType.Text)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
+        [Required]
+        public double Cena { get; set; }
+        public Category? Category { get; set; }
 
-        [DataType(DataType.Text)]
-        public Category Category { get; set; }
+        public  Client Client { get; set; } 
 
+        public int ClientID { get; set; }
 
     }
 }

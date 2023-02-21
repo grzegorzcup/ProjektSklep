@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjektSklep.Data;
 
@@ -11,9 +12,11 @@ using ProjektSklep.Data;
 namespace ProjektSklep.Migrations
 {
     [DbContext(typeof(ProjektSklepContext))]
-    partial class ProjektSklepContextModelSnapshot : ModelSnapshot
+    [Migration("20230220205519_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

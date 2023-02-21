@@ -1,0 +1,43 @@
+﻿@model ProjektSklep.Models.Product
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Dodaj</h1>
+
+<h4>Produkt</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" method="post">
+            <div asp-validation-summary="All"></div>
+            <div>
+                <label asp-for="Name">Nazwa produktu </label>
+                <input type="text" asp-for="Name" />
+                <br />
+            </div>
+            <div>
+                <label asp-for="Description">Opis </label>
+                <input type="text" asp-for="Description" />
+                <br />
+            </div>
+            <div>
+                <label asp-for="Category">Opis </label>
+                <input type="text" asp-for="Category" />
+                <br />
+            </div>
+            <button type="submit">Dodaj</button>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

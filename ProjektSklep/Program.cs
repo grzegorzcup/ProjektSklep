@@ -1,6 +1,8 @@
 using ProjektSklep.Models;
 using ProjektSklep.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using ProjektSklep.Services;
 
 namespace ProjektSklep
 {
@@ -13,7 +15,16 @@ namespace ProjektSklep
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<ProjektSklepContext>(options => options.UseSqlServer("Data Source=GRZEGORZ;Initial Catalog=ProjektSklep;Integrated Security=True;TrustServerCertificate=True"));
-            
+            builder.Services.AddIdentity<Client,IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 3;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            }).AddEntityFrameworkStores<ProjektSklepContext>();
+            builder.Services.AddScoped<IShopService, ShopService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -36,10 +47,13 @@ namespace ProjektSklep
                 }
             }
 
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication(); 
 
             app.UseAuthorization();
 
