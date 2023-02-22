@@ -14,7 +14,7 @@ namespace ProjektSklep
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<ProjektSklepContext>(options => options.UseSqlServer("Data Source=GRZEGORZ;Initial Catalog=ProjektSklep;Integrated Security=True;TrustServerCertificate=True"));
+            builder.Services.AddDbContext<ProjektSklepContext>(options => options.UseSqlServer("Data:SportStoreProducts:ConnectionString"));
             builder.Services.AddIdentity<Client,IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
