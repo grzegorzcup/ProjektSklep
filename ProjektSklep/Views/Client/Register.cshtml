@@ -1,37 +1,37 @@
 ﻿@model ProjektSklep.Models.Register
 
-<h1 style="text-align:center">Logowanie</h1>
+<h1 style="text-align:center">Rejestracja</h1>
 
 <form asp-action="Register" method="post">
     <div asp-validation-summary="All"></div>
     <div>
-        <label asp-for="UserName">Nazwa użytkownika </label>
-        <input type="text" asp-for="UserName" />
+        <label asp-for="UserName">Nazwa użytkownika </label><br />
+        <input type="text" asp-for="UserName" /><br />
         <br />
     </div>
     <div>
-        <label asp-for="Imie">Imię </label>
-        <input type="text" asp-for="Imie" />
+        <label asp-for="Imie">Imię </label><br />
+        <input type="text" asp-for="Imie" /><br />
         <br />
     </div>
     <div>
-        <label asp-for="Nazwisko">Nazwisko </label>
-        <input type="text" asp-for="Nazwisko" />
+        <label asp-for="Nazwisko">Nazwisko </label><br />
+        <input type="text" asp-for="Nazwisko" /><br />
         <br />
     </div>
     <div>
-        <label asp-for="PhoneNumber">Numer telefonu </label>
-        <input type="number" asp-for="PhoneNumber" />
+        <label asp-for="PhoneNumber">Numer telefonu </label><br />
+        <input type="number" asp-for="PhoneNumber" /><br />
         <br />
     </div>
     <div>
-        <label asp-for="Email">Email </label>
-        <input type="email" asp-for="Email" />
+        <label asp-for="Email">Email </label><br />
+        <input type="email" asp-for="Email" /><br />
         <br />
     </div>
     <div>
-        <label asp-for="Password">Hasło </label>
-        <input type="password" asp-for="Password" />
+        <label asp-for="Password">Hasło </label><br />
+        <input type="password" asp-for="Password" /><br />
         <br />
     </div>
     <button type="submit">Zarejestruj</button>

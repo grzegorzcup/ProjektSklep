@@ -12,8 +12,8 @@ using ProjektSklep.Data;
 namespace ProjektSklep.Migrations
 {
     [DbContext(typeof(ProjektSklepContext))]
-    [Migration("20230220205519_initial")]
-    partial class initial
+    [Migration("20230221225315_initialize")]
+    partial class initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,22 @@ namespace ProjektSklep.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "222dc2a3-bc2b-4511-a220-57633e5feac5",
+                            ConcurrencyStamp = "464e356b-9422-45d4-85c6-7455dc3a66eb",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "26755de7-d442-4763-9ff7-89cfe3ed6630",
+                            ConcurrencyStamp = "6f3f8960-4a24-4b8d-b179-ff10de9b3cd0",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -137,6 +153,23 @@ namespace ProjektSklep.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "cb3df00c-7538-4014-b9c3-d430b3df31c1",
+                            RoleId = "222dc2a3-bc2b-4511-a220-57633e5feac5"
+                        },
+                        new
+                        {
+                            UserId = "5bcb7225-9e5f-40c8-af38-ebed8685a4c5",
+                            RoleId = "26755de7-d442-4763-9ff7-89cfe3ed6630"
+                        },
+                        new
+                        {
+                            UserId = "cccd7cab-ecc0-400d-99d4-27bc2120fbe4",
+                            RoleId = "26755de7-d442-4763-9ff7-89cfe3ed6630"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -156,21 +189,6 @@ namespace ProjektSklep.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.Property<int>("OrderID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderID", "ProductID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("ProjektSklep.Models.Category", b =>
@@ -262,27 +280,65 @@ namespace ProjektSklep.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
 
-            modelBuilder.Entity("ProjektSklep.Models.Order", b =>
-                {
-                    b.Property<int>("OrderID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
-
-                    b.Property<string>("ClientId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("OrderID");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("Orders");
+                    b.HasData(
+                        new
+                        {
+                            Id = "cb3df00c-7538-4014-b9c3-d430b3df31c1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2fbc4891-d5fb-4950-b233-9a491abd6185",
+                            Email = "Admin@admin.com",
+                            EmailConfirmed = false,
+                            Imie = "Admin",
+                            LockoutEnabled = false,
+                            Nazwisko = "Admin",
+                            NormalizedEmail = "ADMIN@ADMIN.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGFXJOe6ZMZPPYdzTZHDxXqeBDwCDGHus37E9Ks1/lxPp+7oWCMRhznQFKW7TI2zLg==",
+                            PhoneNumber = "123456789",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "7109102f-b328-461f-b6ec-e524699165b3",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = "5bcb7225-9e5f-40c8-af38-ebed8685a4c5",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b31dd3cb-5abd-45f0-8712-26ab2e916d66",
+                            Email = "Guest@guest.pl",
+                            EmailConfirmed = false,
+                            Imie = "Guest",
+                            LockoutEnabled = false,
+                            Nazwisko = "Guest",
+                            NormalizedEmail = "GUEST@GUEST.PL",
+                            NormalizedUserName = "GUEST",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJQIt98+unpkFFYsFwlSwt8Jf571mto2wTYICY4FCLfwZWRjaSWz6Mrla0uvIgQ93g==",
+                            PhoneNumber = "123456",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "97996143-c9be-4dfa-a378-1b12f3198215",
+                            TwoFactorEnabled = false,
+                            UserName = "guest"
+                        },
+                        new
+                        {
+                            Id = "cccd7cab-ecc0-400d-99d4-27bc2120fbe4",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a0ef4e7a-2217-4a8e-b58d-f6970b4dfffc",
+                            Email = "marek.kowalski@gmail.com",
+                            EmailConfirmed = false,
+                            Imie = "Marek",
+                            LockoutEnabled = false,
+                            Nazwisko = "Kowalski",
+                            NormalizedEmail = "MAREK.KOWALSKI@GMAIL.COM",
+                            NormalizedUserName = "MAREK200",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF8CwBPrzuSijnVFCUlumwGx8qEkKAqk7onTpwuDaeD+tV9O+4SqMlCqIMeuNhF0GA==",
+                            PhoneNumber = "123456",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "041ab988-afc1-41e6-b509-c26329b71881",
+                            TwoFactorEnabled = false,
+                            UserName = "marek200"
+                        });
                 });
 
             modelBuilder.Entity("ProjektSklep.Models.Product", b =>
@@ -299,6 +355,10 @@ namespace ProjektSklep.Migrations
                     b.Property<double>("Cena")
                         .HasColumnType("float");
 
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -310,6 +370,8 @@ namespace ProjektSklep.Migrations
                     b.HasKey("ProductID");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Products");
                 });
@@ -365,42 +427,31 @@ namespace ProjektSklep.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.HasOne("ProjektSklep.Models.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjektSklep.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ProjektSklep.Models.Order", b =>
-                {
-                    b.HasOne("ProjektSklep.Models.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId");
-
-                    b.Navigation("Client");
-                });
-
             modelBuilder.Entity("ProjektSklep.Models.Product", b =>
                 {
                     b.HasOne("ProjektSklep.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId");
 
+                    b.HasOne("ProjektSklep.Models.Client", "Client")
+                        .WithMany("products")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("ProjektSklep.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ProjektSklep.Models.Client", b =>
+                {
+                    b.Navigation("products");
                 });
 #pragma warning restore 612, 618
         }

@@ -64,6 +64,8 @@ namespace ProjektSklep.Controllers
             };
             await _userManager.CreateAsync(newUser, userRegisterData.Password);
 
+            await _userManager.AddToRoleAsync(newUser, "User");
+
             return RedirectToAction("Index", "Home");
         }
 

@@ -1,5 +1,6 @@
 ﻿namespace ProjektSklep.Data
 {
+    
     public enum EnumCategory
     {
         Elektronika,

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.SqlTypes;
@@ -22,10 +23,7 @@ namespace ProjektSklep.Models
         [Required]
         public double Cena { get; set; }
         public Category? Category { get; set; }
-
-        public  Client Client { get; set; } 
-
-        public int ClientID { get; set; }
+        public Client Client { get; set; }
 
     }
 }

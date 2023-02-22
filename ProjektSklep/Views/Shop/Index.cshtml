@@ -41,12 +41,17 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <a asp-action="Details" asp-route-id="@item.ProductID">Details</a>
-                        <a asp-action="Details" asp-route-id="@item.ProductID">Dodaj do koszyka</a>
+
+                        <br />
                         <a asp-action="Delete" asp-route-id="@item.ProductID">Usuń</a>
+
+                        <br />
                     }
                     else
                     {
                         <a asp-action="Details" asp-route-id="@item.ProductID">Details</a>
+
+                        <br />
                     }
                 </td>
             </tr>

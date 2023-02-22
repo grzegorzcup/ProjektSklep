@@ -39,60 +39,35 @@ namespace ProjektSklep.Models
                     Name = "Galaxy S22 Ultra 5G",
                     Description = "Telefon ",
                     Category = Elektronika,
-                    Cena = 4000
+                    Cena = 4000,
+                    Client = context.Clients.First(c=>c.UserName == "Admin")
+                    
                 },
                 new Product
                 {
                     Name = "Jeansy",
                     Description = "Spodnie ",
                     Category = Moda,
-                    Cena = 20
+                    Cena = 20,
+                    Client = context.Clients.First(c => c.UserName == "Admin")
                 },
                 new Product
                 {
                     Name = "Traktor zabawka",
                     Description = "Zabawka ",
                     Category = Dzieci,
-                    Cena = 100
-                    
+                    Cena = 100,
+                    Client = context.Clients.First(c => c.UserName == "Admin")
+
                 },
                 new Product
                 {
                     Name = "Piła siatkowa",
                     Description = "Piłka ",
                     Category = Sport,
-                    Cena=240.99
+                    Cena=240.99,
+                    Client = context.Clients.First(c => c.UserName == "Admin")
                 }
-                );
-                context.SaveChanges();
-
-
-                context.Clients.AddRange(
-                    new Client
-                    {
-                        UserName = "Admin",
-                        Imie = "Admin",
-                        Nazwisko = "Admin",
-                        PhoneNumber = "Admin",
-                        Email = "Admin@admin.com"
-                    },
-                    new Client
-                    {
-                        UserName = "Guest",
-                        Imie = "Guest",
-                        Nazwisko = "Guest",
-                        PhoneNumber = "123456",
-                        Email = "Guest@guest.pl"
-                    },
-                    new Client
-                    {
-                        UserName = "marek200",
-                        Imie = "Marek",
-                        Nazwisko = "Kowalski",
-                        PhoneNumber = "123456",
-                        Email = "marek.kowalski@gmail.com"
-                    }
-
                 );
                 context.SaveChanges();
             }

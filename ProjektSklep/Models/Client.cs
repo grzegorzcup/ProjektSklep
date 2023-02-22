@@ -26,5 +26,7 @@ namespace ProjektSklep.Models
         [StringLength(50)]
         [DataType(DataType.Text)]
         public string? Nazwisko { get; set; }
+
+        public ICollection<Product> products { get; set;}
     }
 }

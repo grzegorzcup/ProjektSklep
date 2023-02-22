@@ -17,61 +17,97 @@ namespace ProjektSklep.Data
         {
             base.OnModelCreating(builder);
 
-            //seed admin role
-            builder.Entity<IdentityRole>().HasData(new IdentityRole
+            //seed role
+            List<IdentityRole> roles = new List<IdentityRole>();
+            roles.Add(new IdentityRole
             {
                 Name = "Admin",
-                ConcurrencyStamp ="1",
-                NormalizedName= "ADMIN",
-            }, new IdentityRole
+                NormalizedName = "ADMIN",
+            });
+            roles.Add(new IdentityRole
             {
                 Name = "User",
-                ConcurrencyStamp = "2",
                 NormalizedName = "USER",
-            }
-            );
+            });
+            builder.Entity<IdentityRole>().HasData(roles);
+
 
             //create user
-            var appuser1 =new Client
+            var appuser1 = new Client
             {
                 UserName = "admin",
+                NormalizedUserName = "ADMIN",
                 Imie = "Admin",
                 Nazwisko = "Admin",
-                PhoneNumber = "Admin",
-                Email = "Admin@admin.com"
+                PhoneNumber = "123456789",
+                Email = "Admin@admin.com",
+                NormalizedEmail = "ADMIN@ADMIN.COM"
+
             };
             var appuser2 = new Client
             {
                 UserName = "guest",
+                NormalizedUserName = "GUEST",
                 Imie = "Guest",
                 Nazwisko = "Guest",
                 PhoneNumber = "123456",
-                Email = "Guest@guest.pl"
+                Email = "Guest@guest.pl",
+                NormalizedEmail = "GUEST@GUEST.PL"
             };
             var appuser3 = new Client
             {
                 UserName = "marek200",
+                NormalizedUserName = "MAREK200",
                 Imie = "Marek",
                 Nazwisko = "Kowalski",
                 PhoneNumber = "123456",
-                Email = "marek.kowalski@gmail.com"
+                Email = "marek.kowalski@gmail.com",
+                NormalizedEmail = "MAREK.KOWALSKI@GMAIL.COM"
+
             };
+
+            List<Client> clients = new List<Client>();
+            clients.Add(appuser1);
+            clients.Add(appuser2);
+            clients.Add(appuser3);
+
+
+            //seed user
+            builder.Entity<Client>().HasData(clients);
 
             //set user password
             PasswordHasher<Client> ph = new PasswordHasher<Client>();
 
-            appuser1.PasswordHash = ph.HashPassword(appuser1, "admin");
+            clients[0].PasswordHash = ph.HashPassword(clients[0], "admin");
 
-            appuser1.PasswordHash = ph.HashPassword(appuser1, "guest");
+            clients[1].PasswordHash = ph.HashPassword(clients[1], "guest");
 
-            appuser1.PasswordHash = ph.HashPassword(appuser1, "marek200");
-
-            //seed user
-            builder.Entity<Client>().HasData(appuser1);
-            builder.Entity<Client>().HasData(appuser2);
-            builder.Entity<Client>().HasData(appuser3);
+            clients[2].PasswordHash = ph.HashPassword(clients[2], "marek200");
 
 
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = roles.First(q => q.Name == "Admin").Id,
+                UserId = clients[0].Id
+                
+            });
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = roles.First(q => q.Name == "User").Id,
+                UserId = clients[1].Id
+
+            });
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = roles.First(q => q.Name == "User").Id,
+                UserId = clients[2].Id
+
+            });
+
+
+
+
+            builder.Entity<Product>().HasOne<Client>(c => c.Client).WithMany(d => d.products).IsRequired();
 
 
         }

@@ -13,18 +13,18 @@
         <form asp-action="Add" method="post">
             <div asp-validation-summary="All"></div>
             <div>
-                <label asp-for="Name">Nazwa produktu </label>
-                <input type="text" asp-for="Name" />
+                <label asp-for="Name">Nazwa produktu </label><br />
+                <input type="text" asp-for="Name" /><br />
                 <br />
             </div>
             <div>
-                <label asp-for="Description">Opis </label>
-                <input type="text" asp-for="Description" />
+                <label asp-for="Description">Opis </label><br />
+                <input type="text" asp-for="Description" /><br />
                 <br />
             </div>
             <div>
-                <label asp-for="Category">Opis </label>
-                <input type="text" asp-for="Category" />
+                <label asp-for="Category">Opis </label><br />
+                <input type="text" asp-for="Category" /><br />
                 <br />
             </div>
             <button type="submit">Dodaj</button>
@@ -35,9 +35,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

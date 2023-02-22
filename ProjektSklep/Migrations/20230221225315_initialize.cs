@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace ProjektSklep.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -172,25 +174,6 @@ namespace ProjektSklep.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    OrderID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.OrderID);
-                    table.ForeignKey(
-                        name: "FK_Orders_AspNetUsers_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -199,11 +182,18 @@ namespace ProjektSklep.Migrations
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Cena = table.Column<double>(type: "float", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true)
+                    CategoryId = table.Column<int>(type: "int", nullable: true),
+                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductID);
+                    table.ForeignKey(
+                        name: "FK_Products_AspNetUsers_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
@@ -211,28 +201,33 @@ namespace ProjektSklep.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "OrderProduct",
-                columns: table => new
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
                 {
-                    OrderID = table.Column<int>(type: "int", nullable: false),
-                    ProductID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
+                    { "222dc2a3-bc2b-4511-a220-57633e5feac5", "464e356b-9422-45d4-85c6-7455dc3a66eb", "Admin", "ADMIN" },
+                    { "26755de7-d442-4763-9ff7-89cfe3ed6630", "6f3f8960-4a24-4b8d-b179-ff10de9b3cd0", "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Imie", "LockoutEnabled", "LockoutEnd", "Nazwisko", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
                 {
-                    table.PrimaryKey("PK_OrderProduct", x => new { x.OrderID, x.ProductID });
-                    table.ForeignKey(
-                        name: "FK_OrderProduct_Orders_OrderID",
-                        column: x => x.OrderID,
-                        principalTable: "Orders",
-                        principalColumn: "OrderID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrderProduct_Products_ProductID",
-                        column: x => x.ProductID,
-                        principalTable: "Products",
-                        principalColumn: "ProductID",
-                        onDelete: ReferentialAction.Cascade);
+                    { "5bcb7225-9e5f-40c8-af38-ebed8685a4c5", 0, "b31dd3cb-5abd-45f0-8712-26ab2e916d66", "Guest@guest.pl", false, "Guest", false, null, "Guest", "GUEST@GUEST.PL", "GUEST", "AQAAAAEAACcQAAAAEJQIt98+unpkFFYsFwlSwt8Jf571mto2wTYICY4FCLfwZWRjaSWz6Mrla0uvIgQ93g==", "123456", false, "97996143-c9be-4dfa-a378-1b12f3198215", false, "guest" },
+                    { "cb3df00c-7538-4014-b9c3-d430b3df31c1", 0, "2fbc4891-d5fb-4950-b233-9a491abd6185", "Admin@admin.com", false, "Admin", false, null, "Admin", "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEGFXJOe6ZMZPPYdzTZHDxXqeBDwCDGHus37E9Ks1/lxPp+7oWCMRhznQFKW7TI2zLg==", "123456789", false, "7109102f-b328-461f-b6ec-e524699165b3", false, "admin" },
+                    { "cccd7cab-ecc0-400d-99d4-27bc2120fbe4", 0, "a0ef4e7a-2217-4a8e-b58d-f6970b4dfffc", "marek.kowalski@gmail.com", false, "Marek", false, null, "Kowalski", "MAREK.KOWALSKI@GMAIL.COM", "MAREK200", "AQAAAAEAACcQAAAAEF8CwBPrzuSijnVFCUlumwGx8qEkKAqk7onTpwuDaeD+tV9O+4SqMlCqIMeuNhF0GA==", "123456", false, "041ab988-afc1-41e6-b509-c26329b71881", false, "marek200" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { "26755de7-d442-4763-9ff7-89cfe3ed6630", "5bcb7225-9e5f-40c8-af38-ebed8685a4c5" },
+                    { "222dc2a3-bc2b-4511-a220-57633e5feac5", "cb3df00c-7538-4014-b9c3-d430b3df31c1" },
+                    { "26755de7-d442-4763-9ff7-89cfe3ed6630", "cccd7cab-ecc0-400d-99d4-27bc2120fbe4" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -275,19 +270,14 @@ namespace ProjektSklep.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderProduct_ProductID",
-                table: "OrderProduct",
-                column: "ProductID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_ClientId",
-                table: "Orders",
-                column: "ClientId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ClientId",
+                table: "Products",
+                column: "ClientId");
         }
 
         /// <inheritdoc />
@@ -309,16 +299,10 @@ namespace ProjektSklep.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "OrderProduct");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

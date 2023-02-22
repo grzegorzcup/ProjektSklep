@@ -26,14 +26,14 @@ namespace ProjektSklep.Services
 
         public Product Get(int id)
         {
-            var products = _context.Products.Include(c => c.Category).ThenInclude(c =>c.Products).ToList();
+            var products = _context.Products.Include(c => c.Category).Include(d=>d.Client).ToList();
             var product = products.Find(c => c.ProductID == id);
             return product;
         }
 
         public List<Product> GetAll()
         {
-            var products = _context.Products.Include(c => c.Category).ThenInclude(c => c.Products).ToList();
+            var products = _context.Products.Include(c => c.Category).Include(d => d.Client).ToList();
 
             return products;
         }
