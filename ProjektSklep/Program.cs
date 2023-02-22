@@ -8,13 +8,17 @@ namespace ProjektSklep
 {
     public class Program
     {
+
         public static void Main(string[] args)
         {
+            string envDev = "dev";
+            string envProd = "prod";
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<ProjektSklepContext>(options => options.UseSqlServer("Data:SportStoreProducts:ConnectionString"));
+            builder.Services.AddDbContext<ProjektSklepContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(envDev)));
             builder.Services.AddIdentity<Client,IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
