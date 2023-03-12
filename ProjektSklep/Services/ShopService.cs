@@ -17,11 +17,24 @@ namespace ProjektSklep.Services
 
         public int Delete(int id)
         {
-            var product = _context.Products.Find(id);
+            var products = _context.Products.Include(c => c.Category).Include(d => d.Client).ToList();
+            var product = products.Find(c=> c.ProductID == id);
             _context.Products.Remove(product);
             _context.SaveChanges();
 
             return id;
+        }
+        public int Edit(Product product)
+        {
+            using(var context = _context)
+            {
+                context.Products.Attach(product);
+                context.Entry(product).Property(c=>c.Name).IsModified=true ;
+                context.Entry(product).Property(c => c.Description).IsModified = true;
+                context.Entry(product).Property(c=>c.Cena).IsModified=true;
+                context.SaveChanges();
+            }
+            return product.ProductID;
         }
 
         public Product Get(int id)

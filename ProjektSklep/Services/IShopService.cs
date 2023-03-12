@@ -8,5 +8,7 @@ namespace ProjektSklep.Services
         List<Product> GetAll();
         Product Get(int id);
         int Delete(int id);
+
+        int Edit(Product product);
     }
 }

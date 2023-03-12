@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using ProjektSklep.Services;
 using Microsoft.EntityFrameworkCore;
 using ProjektSklep.Data;
+using Microsoft.CodeAnalysis.Differencing;
 
 namespace ProjektSklep.Controllers
 {
@@ -58,11 +59,27 @@ namespace ProjektSklep.Controllers
             return View(product);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Delete(int id)
         {
             _shopService.Delete(id);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+
+            var product = _shopService.Get(id);
+            return View(product);
+        }
+        [HttpPost]
+        public IActionResult Edit(Product body)
+        {
+
+            var id = _shopService.Edit(body);
+
+            return RedirectToAction("Index");
+        }
+
     }
 }
